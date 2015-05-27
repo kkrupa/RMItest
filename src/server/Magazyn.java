@@ -15,12 +15,16 @@ public class Magazyn extends UnicastRemoteObject implements Warehouse {
 	public Magazyn() throws RemoteException {
 		magazyn = new ArrayList<Produkt>();
 		wynik = new ArrayList<Produkt>();
-		magazyn.add(new Produkt("Samochodzik", "Melex", 1000.5));
+		magazyn.add(new Produkt("Samochodz", "Melex", 1000.5));
 		magazyn.add(new Produkt("Rower", "Pelikan", 300));
 		magazyn.add(new Produkt("Przerzutki", "Shimano", 150.5));
 		magazyn.add(new Produkt("Pasta do zebow", "Colgate", 11.2));
 		magazyn.add(new Produkt("Buty", "Vans", 200));
 		magazyn.add(new Produkt("Ksiazka", "Helion", 150));
+		magazyn.add(new Produkt("Spaghetti", "Malma", 20));
+		magazyn.add(new Produkt("RMI od podstaw", "Helion", 44));
+		magazyn.add(new Produkt("Nexus 5", "LG", 999));
+		magazyn.add(new Produkt("Konsola", "Sony", 1600));
 	}
 
 	public ArrayList<Produkt> getProductsList() throws RemoteException {

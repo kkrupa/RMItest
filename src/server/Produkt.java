@@ -1,4 +1,4 @@
-package download;
+package server;
 
 import java.io.Serializable;
 
@@ -35,15 +35,7 @@ public class Produkt implements Serializable {
 	}
 	
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("\n");
-		sb.append(id);
-		sb.append("|");
-		sb.append(getNazwa());
-		sb.append("|");
-		sb.append(getMarka());
-		sb.append("|");
-		sb.append(getCena());
-		return sb.toString();
+		String print = getId() + "|" + getNazwa() + "|" + getMarka() + "|" + getCena();
+		return print;
 	}
 }

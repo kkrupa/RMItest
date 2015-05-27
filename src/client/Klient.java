@@ -8,23 +8,35 @@ import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
+import sun.security.action.GetLongAction;
 import download.Produkt;
 import download.Warehouse;
 
 public class Klient {
+	
+	public static Warehouse r;
+	private String url = "magazyn";
+	
+	public Klient() throws MalformedURLException, RemoteException, NotBoundException {
+		r = (Warehouse)Naming.lookup(url);
+	}
 
-	public static void main(String[] args) throws NamingException,
-			RemoteException, MalformedURLException, NotBoundException {
-
-		String url = "magazyn";
-		Warehouse r = (Warehouse)Naming.lookup(url);
-		ArrayList<Produkt> lista = new ArrayList<Produkt>();
-		lista = r.getProductsList();
-		System.out.println(r.checkForProducts("melex"));
-		System.out.println(lista.toString());
+	public String getListaProduktow() throws RemoteException {
+		return r.getProductsList().toString();
+	}
+	
+	public String szukajProduktu(String lancuch) throws RemoteException {
+		return r.searchForProducts(lancuch).toString();
+	}
+	
+	public static void main(String[] args) {
 		
-
-		
+		try {
+			MainWindow window = new MainWindow(new Klient());
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 

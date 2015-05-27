@@ -22,11 +22,15 @@ public class Klient {
 	}
 
 	public String getListaProduktow() throws RemoteException {
-		return r.getProductsList().toString();
+		return r.getProductsList();
 	}
 	
 	public String szukajProduktu(String lancuch) throws RemoteException {
-		return r.searchForProducts(lancuch).toString();
+		return r.searchForProducts(lancuch);
+	}
+	
+	public boolean kupProdukt(int id) throws RemoteException {
+		return r.buyProduct(id);
 	}
 	
 	public static void main(String[] args) {

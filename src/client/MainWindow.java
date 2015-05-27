@@ -14,6 +14,10 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+
+import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
 
 public class MainWindow {
 
@@ -31,13 +35,13 @@ public class MainWindow {
 
 	public void splitListaInTable(String listaProduktow, Table tabela) {
 		table.removeAll();
-//		listaProduktow = listaProduktow.replace("[", "");
-//		listaProduktow = listaProduktow.replace("]", "");
+		listaProduktow = listaProduktow.replace("[", "");
+		listaProduktow = listaProduktow.replace("]", "");
 		String[] lines = listaProduktow.split(",");
 		for (String line : lines) {
+			line = line.trim();
 			item = new TableItem(tabela, SWT.NONE);
 			parts = line.split("\\|");
-			System.out.println(parts[0]);
 			item.setText(parts);
 		}
 	}
@@ -64,7 +68,7 @@ public class MainWindow {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(738, 506);
+		shell.setSize(703, 506);
 		shell.setText("Sklep");
 
 		table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION);
@@ -125,6 +129,29 @@ public class MainWindow {
 				".Helvetica Neue DeskInterface", 14, SWT.NORMAL));
 		btnNewButton.setBounds(478, 54, 95, 43);
 		btnNewButton.setText("Szukaj");
+		
+		Button btnNewButton_1 = new Button(shell, SWT.NONE);
+		btnNewButton_1.setFont(SWTResourceManager.getFont(".Helvetica Neue DeskInterface", 14, SWT.NORMAL));
+		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (table.getSelectionCount() != 0) {
+					try {
+						int selectionIndex = table.getSelectionIndex();
+						int id = Integer.parseInt((table.getItem(selectionIndex).getText(0)));
+						if(klient.kupProdukt(id)) {
+							System.out.println("Dziekujemy za zakupy!");
+							splitListaInTable(klient.getListaProduktow(), table);
+						}
+						else System.out.println("Zakup nieudany. Ktoś mógł Cię ubiec :-(");
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnNewButton_1.setBounds(587, 120, 95, 70);
+		btnNewButton_1.setText("Kup \nprodukt");
 
 	}
 }

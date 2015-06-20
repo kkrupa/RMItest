@@ -14,23 +14,23 @@ import download.Warehouse;
 
 public class Klient {
 	
-	public static Warehouse r;
+	public static Warehouse remote;
 	private String url = "magazyn";
 	
 	public Klient() throws MalformedURLException, RemoteException, NotBoundException {
-		r = (Warehouse)Naming.lookup(url);
+		remote = (Warehouse)Naming.lookup(url);
 	}
 
 	public String getListaProduktow() throws RemoteException {
-		return r.getProductsList();
+		return remote.getProductsList();
 	}
 	
 	public String szukajProduktu(String lancuch) throws RemoteException {
-		return r.searchForProducts(lancuch);
+		return remote.searchForProducts(lancuch);
 	}
 	
 	public boolean kupProdukt(int id) throws RemoteException {
-		return r.buyProduct(id);
+		return remote.buyProduct(id);
 	}
 	
 	public static void main(String[] args) {
